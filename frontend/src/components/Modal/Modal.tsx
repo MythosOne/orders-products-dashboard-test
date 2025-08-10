@@ -10,18 +10,26 @@ import {
   ButtonDel,
 } from './Modal.styled';
 
-export const Modal = () => {
+interface ModalProps {
+  open: boolean;
+  onClose: () => void;
+  onConfirm: () => void;
+}
+
+export const Modal: React.FC<ModalProps> = ({ open, onClose, onConfirm }) => {
+  if (!open) return null;
+
   return (
     <ModalContainer>
-        <ButtonClosed>Удалить</ButtonClosed>
+      <ButtonClosed onClick={onClose}>Удалить</ButtonClosed>
       <ModalBlockUp>
         <ModalTitle>Вы уверены что хотите удалить это приход?</ModalTitle>
         <ProductsDelete>Продукт удаления</ProductsDelete>
       </ModalBlockUp>
       <ModalBlockDown>
         <BlockButton>
-          <ButtonEsc>Отмена</ButtonEsc>
-          <ButtonDel>Удалить</ButtonDel>
+          <ButtonEsc onClick={onClose}>Отмена</ButtonEsc>
+          <ButtonDel onClick={onConfirm}>Удалить</ButtonDel>
         </BlockButton>
       </ModalBlockDown>
     </ModalContainer>

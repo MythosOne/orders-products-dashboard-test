@@ -13,6 +13,8 @@ import { ErrorPage } from '@/pages/ErrorPage/ErrorPage';
 // import {Modal} from '@/components/Modal/Modal';
 import './App.css';
 
+// import { OrdersList } from '@/components/OrdersList/OrdersList';
+
 function App() {
   return (
     <>
@@ -29,9 +31,9 @@ function App() {
       <TopMenu />
       <NavigationMenu />
       {/* <Modal/> */}
+      {/* <OrdersList /> */}
     </>
   );
 }
 
 export default App;
-

@@ -1,9 +1,16 @@
 import styled from '@emotion/styled';
 
 export const ProductContainer = styled.div`
-  border: 1px solid #ccc;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  border: 1px solid #000;
+  border-radius: 8px;
   padding: 10px;
   margin-bottom: 10px;
+  background-color: #fff;
+  color: #000;
 `;
 
 export const Title = styled.h3`
@@ -16,4 +23,12 @@ export const Paragraph = styled.p`
 
 export const Strong = styled.strong`
   font-weight: 700;
+`;
+
+export const ButtonDelete = styled.button`
+  background-color: #f44336;
+
+  &:hover {
+    background-color: #d32f2f;
+  }
 `;

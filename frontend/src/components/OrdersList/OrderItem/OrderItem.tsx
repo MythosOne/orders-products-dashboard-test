@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { createPortal } from 'react-dom';
 
 import { Modal } from '@/components/Modal/Modal';
 import {
@@ -8,6 +9,11 @@ import {
   OrderDate,
   OrderDescription,
   ButtonDelete,
+  ProductsWrapper,
+  ProductsList,
+  ProductTitle,
+  ProductItem,
+  ButtonClose
 } from './OrderItem.styled';
 import { products } from '@/DataBase/data';
 
@@ -35,7 +41,7 @@ interface OrderItemProps {
 export const OrderItem: React.FC<OrderItemProps> = ({ order, onDelete }) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [showProducts, setShowProducts] = useState(false);
-
+  
   const { id, title, date, description } = order;
 
   const handleToggleProducts = () => setShowProducts((prev) => !prev);
@@ -51,8 +57,30 @@ export const OrderItem: React.FC<OrderItemProps> = ({ order, onDelete }) => {
     onDelete(id);
     setIsOpenModal(false);
   };
+
+  const productsListPortal = showProducts
+    ? createPortal(
+        <ProductsWrapper>
+          <ProductTitle>Products:</ProductTitle>
+          <ProductsList>
+            {orderProducts.map((product) => {
+              const { id, title, type, specification } = product;
+              const defaultPrice = product.price.find((p) => p.isDefault);
+              return (
+                <ProductItem key={id}>
+                  {title} — {type} — {specification} — {defaultPrice?.value} {defaultPrice?.symbol}
+                </ProductItem>
+              );
+            })}
+          </ProductsList>
+          <ButtonClose onClick={handleToggleProducts}>Close</ButtonClose>
+        </ProductsWrapper>,
+        document.body
+      )
+    : null;
+
   return (
-    <OrderItemContainer>
+    <OrderItemContainer showProducts={showProducts}>
       <OrderTitle>{title}</OrderTitle>
       <ProductsListButton onClick={handleToggleProducts}>
         Products List
@@ -61,23 +89,7 @@ export const OrderItem: React.FC<OrderItemProps> = ({ order, onDelete }) => {
       <OrderDescription>{description}</OrderDescription>
       <ButtonDelete onClick={handleDelete}>Delete</ButtonDelete>
 
-      {showProducts && (
-        <div>
-          <h4>Products:</h4>
-          <ul>
-            {orderProducts.map((product) => {
-              const { id, title, type, specification } = product;
-              const defaultPrice = product.price.find((p) => p.isDefault);
-              return (
-                <li key={id} style={{ color: '#000' }}>
-                  {title} — {type} — {specification} —{' '}
-                  {defaultPrice?.value} {defaultPrice?.symbol}
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-      )}
+      {productsListPortal}
 
       <Modal
         open={isOpenModal}

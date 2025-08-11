@@ -1,55 +1,63 @@
-import { useState } from 'react';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+
+import type { RootState, AppDispatch } from '@/redux/store';
+import { fetchOrders, deleteOrder } from '@/redux/ordersSlice';
+import { selectFilter } from '@/redux/filterSlice';
+
 import { OrderItem } from '@/components/OrdersList/OrderItem/OrderItem';
-import { orders } from '@/DataBase/data';
+
+import { OrderListTitle, OrderListContainer } from './OrdersList.styled';
 
 export const OrdersList = () => {
-const [ordersList, setOrders] = useState(orders);
+  const dispatch = useDispatch<AppDispatch>();
+  const { orders, loading, error } = useSelector(
+    (state: RootState) => state.orders,
+  );
 
-const handleDeleteOrder = (id: number) => {
-  setOrders(prev => prev.filter(order => order.id !== id));
-};
+  const filter = useSelector(selectFilter);
+
+  useEffect(() => {
+    dispatch(fetchOrders());
+  }, [dispatch]);
+
+  const handleDeleteOrder = (id: number) => {
+    dispatch(deleteOrder(id));
+  };
+
+  const filteredOrders = filter
+    ? orders.filter(order =>
+        order.title.toLowerCase().includes(filter.toLowerCase())
+      )
+    : orders;
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  if (filteredOrders.length === 0) {
+    return <div>No orders found</div>;
+  }
 
   return (
     <>
-      <h2>Orders List</h2>
-      <ul>
-        {ordersList.map((order) => {
-          return <OrderItem key={order.id} order={order} onDelete = {handleDeleteOrder}/>;
+      <OrderListTitle>Orders List / {filteredOrders.length}</OrderListTitle>
+      <OrderListContainer>
+        {filteredOrders.map((order) => {
+          return (
+            <OrderItem
+              key={order.id}
+              order={order}
+              onDelete={handleDeleteOrder}
+              
+            />
+          );
         })}
-      </ul>
+      </OrderListContainer>
     </>
   );
 };
-
-// * export interface Price {
-//*   value: number;
-//*   symbol: string;
-//*   isDefault: 0 | 1;
-//* }
-
-//* export interface Guarantee {
-//*   start: string;
-//*   end: string;
-//* }
-
-//* export interface Product {
-//*   id: number;
-//*   serialNumber: number;
-//*   isNew: 0 | 1;
-//*   photo: string;
-//*   title: string;
-//*   type: string;
-//*   specification: string;
-// *  guarantee: Guarantee;
-//*   price: Price[];
-//*   order: number; // id заказа, к которому привязан продукт
-//*   date: string;
-// *}
-
-// export interface Order {
-//   id: number;
-//   title: string;
-//   date: string;
-//   description: string;
-//   products: Product[];
-// }

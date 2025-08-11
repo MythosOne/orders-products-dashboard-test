@@ -30,8 +30,6 @@ function App() {
 
       <TopMenu />
       <NavigationMenu />
-      {/* <Modal/> */}
-      {/* <OrdersList /> */}
     </>
   );
 }

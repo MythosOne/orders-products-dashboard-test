@@ -3,6 +3,7 @@ import {
   Title,
   Paragraph,
   Strong,
+  ButtonDelete,
 } from './ProductItem.styled';
 
 export interface Product {
@@ -35,9 +36,15 @@ interface ProductItemProps {
 }
 
 export const ProductItem: React.FC<ProductItemProps> = ({
-  product,
+  product, onDelete
 }) => {
   const {title, type, guarantee, price, order } = product;
+
+  const handleDelete = () => {
+    if (onDelete) {
+      onDelete(product.id);
+    }
+  };
 
   return (
     <ProductContainer>
@@ -61,6 +68,7 @@ export const ProductItem: React.FC<ProductItemProps> = ({
       <Paragraph>
         <Strong>Приход:</Strong> {order}
       </Paragraph>
+      <ButtonDelete onClick={handleDelete}>Delete</ButtonDelete>
     </ProductContainer>
   );
 };

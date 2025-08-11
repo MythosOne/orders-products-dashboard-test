@@ -1,16 +1,8 @@
 import styled from '@emotion/styled';
 
-export const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-
-  margin-bottom: 10px;
-`;
 
 export const SearchBarForm = styled.form`
-  width: 90%;
+  width: 300px;
   margin: 0 auto;
 
   display: flex;
@@ -36,32 +28,11 @@ export const Input = styled.input`
   outline: none;
 
   height: 20px;
-  width: 75%;
+  width: 100%;
 
   padding: 5px;
   font-size: 16px;
   color: #888;
 
   margin-left: 10px;
-`;
-
-export const ButtonSearch = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  background-color: inherit;
-  border: none;
-  padding: 0;
-  margin-left: 10px;
-
-  cursor: pointer;
-
-    fill: #888;
-
-  &:hover {
-    fill: #2977bd;
-
-    transition: all 0.2s ease-in-out;
-  }
 `;

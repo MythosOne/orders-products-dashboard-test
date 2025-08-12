@@ -94,6 +94,7 @@ export const ProductList = () => {
         filteredProducts.map((product) => (
           <ProductItem
             key={product.id}
+            orderId={selectedOrderId!}
             product={product}
             onDelete={() => handleDeleteProduct(product.id)}
           />

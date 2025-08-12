@@ -1,3 +1,5 @@
+import type { Product} from '@/redux/ordersSlice';
+
 import {
   ProductContainer,
   Title,
@@ -6,43 +8,22 @@ import {
   ButtonDelete,
 } from './ProductItem.styled';
 
-export interface Product {
-  id: number;
-  serialNumber: number;
-  isNew: number;
-  photo: string;
-  title: string;
-  type: string;
-  specification: string;
-  guarantee: Guarantee;
-  price: Price[];
-  order: number;
-  date: string;
-}
-export interface Guarantee {
-  start: string;
-  end: string;
-}
-
-export interface Price {
-  value: number;
-  symbol: string;
-  isDefault: number;
-}
-
 interface ProductItemProps {
   product: Product;
-  onDelete?: (id: number) => void;
+  orderId: string;
+  onDelete?: (args: { orderId: string; productId: number }) => void;
 }
 
 export const ProductItem: React.FC<ProductItemProps> = ({
-  product, onDelete
+  product,
+  orderId,
+  onDelete,
 }) => {
-  const {title, type, guarantee, price, order } = product;
+  const { title, type, guarantee, price, order } = product;
 
   const handleDelete = () => {
     if (onDelete) {
-      onDelete(product.id);
+      onDelete({ orderId, productId: product.id });
     }
   };
 

@@ -15,37 +15,42 @@ import {
   ProductItem,
   ButtonClose
 } from './OrderItem.styled';
-import { products } from '@/DataBase/data';
 
-export interface Order {
-  id: number;
-  title: string;
-  date: string;
-  description: string;
+export interface Price {
+  value: number;
+  symbol: string;
+  isDefault: number;
 }
 
-interface Product {
+export interface Product {
   id: number;
   title: string;
   type: string;
   specification: string;
-  price: { value: number; symbol: string; isDefault: number }[];
+  price: Price[];
   order: number;
+}
+
+export interface Order {
+  _id: string;
+  title: string;
+  date: string;
+  description: string;
+  products: Product[];
 }
 
 interface OrderItemProps {
   order: Order;
-  onDelete: (id: number) => void;
+  onDelete: (_id: string) => void;
 }
 
 export const OrderItem: React.FC<OrderItemProps> = ({ order, onDelete }) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [showProducts, setShowProducts] = useState(false);
-  
-  const { id, title, date, description } = order;
+
+  const { _id, title, date, description, products } = order;
 
   const handleToggleProducts = () => setShowProducts((prev) => !prev);
-  const orderProducts: Product[] = products.filter((p) => p.order === id);
 
   const handleDelete = () => {
     setIsOpenModal(true);
@@ -54,7 +59,7 @@ export const OrderItem: React.FC<OrderItemProps> = ({ order, onDelete }) => {
     setIsOpenModal(false);
   };
   const handleConfirmDelete = () => {
-    onDelete(id);
+    onDelete(_id);
     setIsOpenModal(false);
   };
 
@@ -63,9 +68,9 @@ export const OrderItem: React.FC<OrderItemProps> = ({ order, onDelete }) => {
         <ProductsWrapper>
           <ProductTitle>Products:</ProductTitle>
           <ProductsList>
-            {orderProducts.map((product) => {
-              const { id, title, type, specification } = product;
-              const defaultPrice = product.price.find((p) => p.isDefault);
+            {products.map((product) => {
+              const { id, title, type, specification, price } = product;
+              const defaultPrice = price.find((p) => p.isDefault === 1);
               return (
                 <ProductItem key={id}>
                   {title} — {type} — {specification} — {defaultPrice?.value} {defaultPrice?.symbol}
@@ -85,7 +90,7 @@ export const OrderItem: React.FC<OrderItemProps> = ({ order, onDelete }) => {
       <ProductsListButton onClick={handleToggleProducts}>
         Products List
       </ProductsListButton>
-      <OrderDate>{date}</OrderDate>
+      <OrderDate>{new Date(date).toLocaleDateString()}</OrderDate>
       <OrderDescription>{description}</OrderDescription>
       <ButtonDelete onClick={handleDelete}>Delete</ButtonDelete>
 

@@ -1,20 +1,23 @@
 import styled from '@emotion/styled';
 
 export const Section = styled.header`
+  box-sizing: border-box;
   position: fixed;
   left: 0;
   top: 0;
   width: 100%;
-  height: 50px;
+  height: 80px;
   display: flex;
   align-items: center;
-  padding: 5px;
-  justify-content: center;
+  padding: 5px 20px;
+  justify-content: space-around;
   background-color: #fff;
-  z-index: 1000;
+  z-index: 1001;
+  box-shadow: 0 20px 16px -16px rgba(0, 0, 0, 0.2);
 `;
 
 export const HeaderTitle = styled.h1`
-  font-size: 16px;
+  font-size: 18px;
+  font-weight: 600;
   color: #93be56;
 `;

@@ -8,6 +8,7 @@ import { selectFilter } from '@/redux/filterSlice';
 import { OrderItem } from '@/components/OrdersList/OrderItem/OrderItem';
 
 import { OrderListTitle, OrderListContainer } from './OrdersList.styled';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 export const OrdersList = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -21,13 +22,13 @@ export const OrdersList = () => {
     dispatch(fetchOrders());
   }, [dispatch]);
 
-  const handleDeleteOrder = (id: number) => {
-    dispatch(deleteOrder(id));
+  const handleDeleteOrder = (_id: string) => {
+    dispatch(deleteOrder(_id));
   };
 
   const filteredOrders = filter
-    ? orders.filter(order =>
-        order.title.toLowerCase().includes(filter.toLowerCase())
+    ? orders.filter((order) =>
+        order.title.toLowerCase().includes(filter.toLowerCase()),
       )
     : orders;
 
@@ -45,18 +46,18 @@ export const OrdersList = () => {
 
   return (
     <>
-      <OrderListTitle>Orders List / {filteredOrders.length}</OrderListTitle>
+      <OrderListTitle>
+        <AddCircleIcon />
+        Orders List / {filteredOrders.length}
+      </OrderListTitle>
       <OrderListContainer>
-        {filteredOrders.map((order) => {
-          return (
-            <OrderItem
-              key={order.id}
-              order={order}
-              onDelete={handleDeleteOrder}
-              
-            />
-          );
-        })}
+        {filteredOrders.map((order) => (
+          <OrderItem
+            key={order._id}
+            order={order}
+            onDelete={handleDeleteOrder}
+          />
+        ))}
       </OrderListContainer>
     </>
   );

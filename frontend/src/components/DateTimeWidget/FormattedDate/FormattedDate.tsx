@@ -1,4 +1,4 @@
-import { CurrentDate } from './FormattedDate.styled';
+import { CurrentDate, DayNumber, RestOfDate } from './FormattedDate.styled';
 
 export const FormattedDate = () => {
   const currentDate = new Date();
@@ -22,9 +22,12 @@ export const FormattedDate = () => {
 
   formattedDate = capitalizeWords(formattedDate);
 
+  const [day, ...rest] = formattedDate.replace(',', '').split(' ');
+
   return (
-    <>
-      <CurrentDate>{formattedDate}</CurrentDate>
-    </>
+    <CurrentDate>
+      <DayNumber>{day}</DayNumber>
+      <RestOfDate>{rest.join(' ')}</RestOfDate>
+    </CurrentDate>
   );
 };

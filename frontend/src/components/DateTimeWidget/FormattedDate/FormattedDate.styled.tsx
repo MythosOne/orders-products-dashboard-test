@@ -1,18 +1,21 @@
-import styled from '@emotion/styled'
+import styled from '@emotion/styled';
 
 export const CurrentDate = styled.p`
-  display: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  color: #000;
+`;
 
-  @media screen and (min-width: 767px) {
-    display: block;
+export const DayNumber = styled.span`
+  font-size: 20px;
+  margin: 0;
+`;
 
-    /* font-family: 'Nanum Gothic', sans-serif; */
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    letter-spacing: -0.15px;
-
-    color: #a3d4ff;
-  }
+export const RestOfDate = styled.span`
+  font-size: 20px;
+  color: #000;
+  text-align: center;
+  margin: 0;
 `;

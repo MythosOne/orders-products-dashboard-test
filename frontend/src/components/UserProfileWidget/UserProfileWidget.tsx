@@ -1,7 +1,24 @@
+import {
+  Wrapper,
+  WidgetContainer,
+  AvatarImage,
+  SettingsSector,
+  StyledSettingsIcon,
+} from './UserProfileWidget.styled';
+import avatarImg from '../../../assets/Jack.jpeg';
+
 export const UserProfileWidget = () => {
   return (
-    <div>
-    <p style={{ color: "black" }}>User Profile Widget</p>
-    </div>
+    <Wrapper>
+      <WidgetContainer>
+        <AvatarImage
+          src={avatarImg}
+          alt="User Avatar"
+        />
+      </WidgetContainer>
+      <SettingsSector>
+        <StyledSettingsIcon />
+      </SettingsSector>
+    </Wrapper>
   );
 };

@@ -18,6 +18,9 @@ import './App.css';
 function App() {
   return (
     <>
+      <TopMenu />
+      <NavigationMenu />
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/orders" element={<Orders />} />
@@ -27,9 +30,6 @@ function App() {
         <Route path="/settings" element={<Settings />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
-
-      <TopMenu />
-      <NavigationMenu />
     </>
   );
 }

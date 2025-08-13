@@ -1,10 +1,10 @@
 import { OrdersList } from '@/components/OrdersList/OrdersList';
+import {OrdersPage} from './Orders.styled'
 
 export const Orders = () => {
   return (
-    <div>
-      <h1>Orders Page</h1>
+    <OrdersPage>
       <OrdersList />
-    </div>
+    </OrdersPage>
   );
 };

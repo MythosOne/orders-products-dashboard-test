@@ -1,38 +1,11 @@
 import styled from '@emotion/styled';
 
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+import DeleteIcon from '@mui/icons-material/Delete';
+
 interface OrderItemContainerProps {
   showProducts: boolean;
 }
-
-export const OrderItemContainer = styled.li<OrderItemContainerProps>`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-around;
-  width: ${({ showProducts }) => (showProducts ? '400px' : '800px')};
-  transition: width 0.3s ease;
-  padding: 16px;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  margin-bottom: 16px;
-  background-color: #fff;
-`;
-
-export const OrderTitle = styled.h3`
-  margin: 0;
-  font-size: 1.25rem;
-  color: #333;
-`;
-
-export const OrderDate = styled.p`
-  margin: 8px 0;
-  color: #666;
-`;
-
-export const OrderDescription = styled.p`
-  margin: 8px 0;
-  color: #555;
-`;
 
 const Button = styled.button`
   background-color: #93be56;
@@ -48,20 +21,135 @@ const Button = styled.button`
   }
 `;
 
-export const ButtonDelete = styled(Button)`
-  background-color: #f44336;
+export const OrderItemContainer = styled.li<OrderItemContainerProps>`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  width: ${({ showProducts }) => (showProducts ? '40%' : '94%')};
+  transition: width 0.3s ease;
+  padding: 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  background-color: #fff;
+
+  box-shadow:
+    0 2px 5px rgba(0, 0, 0, 0.2),
+    0 4px 6px rgba(0, 0, 0, 0.2);
 
   &:hover {
-    background-color: #d32f2f;
+    box-shadow:
+      0 4px 12px rgba(0, 0, 0, 0.2),
+      0 16px 20px rgba(0, 0, 0, 0.2);
   }
 `;
 
-export const ProductsListButton = styled(Button)`
-  background-color: #2196f3;
+export const OrderTitle = styled.p`
+  margin: 0;
+  font-size: 22px;
+  color: #333;
+`;
+
+export const ButtonDelete = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 40px;
+  height: 40px;
+
+  background: transparent;
+  border: 2px solid #586b77;
+  border-radius: 50%;
+
+  cursor: pointer;
+  padding: 0;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 
   &:hover {
-    background-color: #1976d2;
+    /* background: transparent !important; */
+    border-color: #e1483dff;
+    box-shadow: 0 0 5px rgba(118, 168, 67, 0.6);
   }
+`;
+
+export const StyledDeleteIcon = styled(DeleteIcon)({
+  fontSize: 20,
+  color: '#776758ff',
+  filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2))',
+});
+
+export const ProductsListButton = styled(Button)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 40px;
+  height: 40px;
+
+  background: transparent;
+  border: 2px solid #586b77;
+  border-radius: 50%;
+
+  cursor: pointer;
+  padding: 0;
+
+  &:hover {
+    background: transparent !important;
+    border: 2px solid #93be56;
+  }
+`;
+
+export const StyledListIcon = styled(FormatListBulletedIcon)({
+  fontSize: 20,
+  color: '#586B77',
+  filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2))',
+});
+
+export const CountProducts = styled.p`
+  font-size: 20px;
+  color: #000;
+  line-height: 1;
+  margin: 0;
+`;
+
+export const Label = styled.span`
+  font-size: 14px;
+  color: #586b77;
+`;
+
+export const OrderDateContainer = styled.ul`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const ShortOrderDate = styled.li`
+  font-size: 12px;
+  color: #586b77;
+`;
+
+export const LongOrderDate = styled.li`
+  font-size: 14px;
+  color: #000;
+`;
+
+export const SumOrderContainer = styled.ul`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const SumOrderUSD = styled.li`
+  font-size: 12px;
+  color: #586b77;
+`;
+
+export const SumOrderUAH = styled.li`
+  font-size: 14px;
+  color: #000;
 `;
 
 export const ProductsWrapper = styled.div`

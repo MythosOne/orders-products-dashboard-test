@@ -5,15 +5,23 @@ import { Modal } from '@/components/Modal/Modal';
 import {
   OrderItemContainer,
   OrderTitle,
+  StyledListIcon,
   ProductsListButton,
-  OrderDate,
-  OrderDescription,
+  CountProducts,
+  Label,
+  OrderDateContainer,
+  ShortOrderDate,
+  LongOrderDate,
+  SumOrderContainer,
+  SumOrderUSD,
+  SumOrderUAH,
+  StyledDeleteIcon,
   ButtonDelete,
   ProductsWrapper,
   ProductsList,
   ProductTitle,
   ProductItem,
-  ButtonClose
+  ButtonClose,
 } from './OrderItem.styled';
 
 export interface Price {
@@ -48,7 +56,7 @@ export const OrderItem: React.FC<OrderItemProps> = ({ order, onDelete }) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [showProducts, setShowProducts] = useState(false);
 
-  const { _id, title, date, description, products } = order;
+  const { _id, title, date, products } = order;
 
   const handleToggleProducts = () => setShowProducts((prev) => !prev);
 
@@ -63,6 +71,19 @@ export const OrderItem: React.FC<OrderItemProps> = ({ order, onDelete }) => {
     setIsOpenModal(false);
   };
 
+  let sumProductsUSD = 0;
+  let sumProductsUAH = 0;
+
+  products.forEach((product) => {
+    product.price.forEach((p) => {
+      if (p.isDefault === 0) {
+        sumProductsUSD += p.value;
+      } else if (p.isDefault === 1) {
+        sumProductsUAH += p.value;
+      }
+    });
+  });
+
   const productsListPortal = showProducts
     ? createPortal(
         <ProductsWrapper>
@@ -73,14 +94,15 @@ export const OrderItem: React.FC<OrderItemProps> = ({ order, onDelete }) => {
               const defaultPrice = price.find((p) => p.isDefault === 1);
               return (
                 <ProductItem key={id}>
-                  {title} — {type} — {specification} — {defaultPrice?.value} {defaultPrice?.symbol}
+                  {title} — {type} — {specification} — {defaultPrice?.value}{' '}
+                  {defaultPrice?.symbol}
                 </ProductItem>
               );
             })}
           </ProductsList>
           <ButtonClose onClick={handleToggleProducts}>Close</ButtonClose>
         </ProductsWrapper>,
-        document.body
+        document.body,
       )
     : null;
 
@@ -88,11 +110,37 @@ export const OrderItem: React.FC<OrderItemProps> = ({ order, onDelete }) => {
     <OrderItemContainer showProducts={showProducts}>
       <OrderTitle>{title}</OrderTitle>
       <ProductsListButton onClick={handleToggleProducts}>
-        Products List
+        <StyledListIcon />
       </ProductsListButton>
-      <OrderDate>{new Date(date).toLocaleDateString()}</OrderDate>
-      <OrderDescription>{description}</OrderDescription>
-      <ButtonDelete onClick={handleDelete}>Delete</ButtonDelete>
+      <CountProducts>
+        {products.length} <br/>
+        <Label>Продукта</Label>
+      </CountProducts>
+      <OrderDateContainer>
+        <ShortOrderDate>
+          {new Date(date)
+            .toLocaleDateString('ru-RU', { month: '2-digit', year: 'numeric' })
+            .replace('.', '/')}
+        </ShortOrderDate>
+        <LongOrderDate>
+          {new Date(date)
+            .toLocaleDateString('ru-RU', {
+              day: '2-digit',
+              month: 'short',
+              year: 'numeric',
+            })
+            .replace(/\./g, '')
+            .replace(' г', '')
+            .replace(/\s+/g, '/')}
+        </LongOrderDate>
+      </OrderDateContainer>
+      <SumOrderContainer>
+        <SumOrderUSD>{sumProductsUSD} $</SumOrderUSD>
+        <SumOrderUAH>{sumProductsUAH} UAH</SumOrderUAH>
+      </SumOrderContainer>
+      <ButtonDelete onClick={handleDelete}>
+        <StyledDeleteIcon />
+      </ButtonDelete>
 
       {productsListPortal}
 
@@ -100,6 +148,7 @@ export const OrderItem: React.FC<OrderItemProps> = ({ order, onDelete }) => {
         open={isOpenModal}
         onClose={handleCloseModal}
         onConfirm={handleConfirmDelete}
+        itemName={title}
       />
     </OrderItemContainer>
   );

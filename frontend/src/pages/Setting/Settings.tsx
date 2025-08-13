@@ -4,7 +4,7 @@ export const Settings = () => {
   return (
     <SettingsContainer>
       <SettingsTitle>Settings Page</SettingsTitle>
-      <SettingsDescription>This is the settings page where you can configure your application.</SettingsDescription>
+      <SettingsDescription>This is the settings page.</SettingsDescription>
     </SettingsContainer>
   );
 }

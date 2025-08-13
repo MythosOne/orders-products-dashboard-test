@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-export const Section = styled.div`
+export const Section = styled.nav`
   position: fixed;
   flex-direction: column;
   left: 0;
@@ -13,7 +13,7 @@ export const Section = styled.div`
   padding: 5px;
   justify-content: center;
   background-color: #fff;
-  z-index: 1000;
-  box-shadow: 0 20px 16px -16px rgba(0, 0, 0, 0.2);
-
+  box-shadow:
+    0 2px 5px rgba(0, 0, 0, 0.2),
+    0 4px 6px rgba(0, 0, 0, 0.2);
 `;

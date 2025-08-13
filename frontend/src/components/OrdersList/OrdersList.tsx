@@ -7,8 +7,7 @@ import { selectFilter } from '@/redux/filterSlice';
 
 import { OrderItem } from '@/components/OrdersList/OrderItem/OrderItem';
 
-import { OrderListTitle, OrderListContainer } from './OrdersList.styled';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
+import {OrderListContainer } from './OrdersList.styled';
 
 export const OrdersList = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -46,10 +45,6 @@ export const OrdersList = () => {
 
   return (
     <>
-      <OrderListTitle>
-        <AddCircleIcon />
-        Orders List / {filteredOrders.length}
-      </OrderListTitle>
       <OrderListContainer>
         {filteredOrders.map((order) => (
           <OrderItem

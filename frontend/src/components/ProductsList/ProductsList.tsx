@@ -2,82 +2,59 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import type { RootState, AppDispatch } from '@/redux/store';
 import { fetchOrders, deleteProduct } from '@/redux/ordersSlice';
-
 import { ProductItem } from '@/components/ProductsList/ProductItem/ProductItem';
 
-export const ProductList = () => {
+import {
+  FilterLabel,
+  FilterSelect,
+  NoProductsText,
+  ProductList,
+} from './ProductsList.styled';
+
+export const ProductsList = () => {
   const [filterType, setFilterType] = useState<string>('all');
-  const [selectedOrderId, setSelectedOrderId] = useState<string | null>(null);
 
   const dispatch = useDispatch<AppDispatch>();
-  const { orders, loading, error } = useSelector((state: RootState) => state.orders);
+  const { orders, loading, error } = useSelector(
+    (state: RootState) => state.orders,
+  );
 
   useEffect(() => {
     dispatch(fetchOrders());
   }, [dispatch]);
 
-  
-  useEffect(() => {
-    if (!selectedOrderId && orders.length > 0) {
-      setSelectedOrderId(orders[0]._id);
-    }
-  }, [orders, selectedOrderId]);
+  const allProducts = orders.flatMap((order) =>
+    order.products.map((p) => ({
+      ...p,
+      orderId: order._id,
+      orderTitle: order.title,
+    })),
+  );
 
-  
-  const selectedOrder = orders.find(order => order._id === selectedOrderId);
-
-  const products = selectedOrder?.products || [];
-
-  const uniqueTypes = Array.from(new Set(products.map((p) => p.type)));
+  const uniqueTypes = Array.from(new Set(allProducts.map((p) => p.type)));
 
   const filteredProducts =
     filterType === 'all'
-      ? products
-      : products.filter((product) => product.type === filterType);
+      ? allProducts
+      : allProducts.filter((product) => product.type === filterType);
 
-  const handleDeleteProduct = (productId: number) => {
-    if (!selectedOrderId) return;
-    dispatch(deleteProduct({ orderId: selectedOrderId, productId }));
+  const handleDeleteProduct = (orderId: string, productId: number) => {
+    dispatch(deleteProduct({ orderId, productId }));
   };
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
-  if (orders.length === 0) {
-    return <div>No orders available.</div>;
-  }
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+  if (orders.length === 0) return <div>No orders available.</div>;
 
   return (
-    <div>
-      <h1>Products in Order: {selectedOrder?.title || '—'}</h1>
-
-      <label>
-        Select Order:{' '}
-        <select
-          value={selectedOrderId || ''}
-          onChange={(e) => setSelectedOrderId(e.target.value)}
-        >
-          {orders.map((order) => (
-            <option key={order._id} value={order._id}>
-              {order.title}
-            </option>
-          ))}
-        </select>
-      </label>
-
-      <br />
-
-      <label>
-        Filter by type:{' '}
-        <select
+    <>
+      <FilterLabel>
+        Тип продукта
+        <FilterSelect
+          aria-label="Тип продукта"
           value={filterType}
           onChange={(e) => setFilterType(e.target.value)}
-          disabled={products.length === 0}
+          disabled={allProducts.length === 0}
         >
           <option value="all">All</option>
           {uniqueTypes.map((type) => (
@@ -85,21 +62,26 @@ export const ProductList = () => {
               {type}
             </option>
           ))}
-        </select>
-      </label>
+        </FilterSelect>
+      </FilterLabel>
 
       {filteredProducts.length === 0 ? (
-        <p>No products found.</p>
+        <NoProductsText>No products found.</NoProductsText>
       ) : (
-        filteredProducts.map((product) => (
-          <ProductItem
-            key={product.id}
-            orderId={selectedOrderId!}
-            product={product}
-            onDelete={() => handleDeleteProduct(product.id)}
-          />
-        ))
+        <ProductList>
+          {filteredProducts.map((product) => (
+            <li key={`${product.orderId}-${product.id}`}>
+              <ProductItem
+                orderId={product.orderId}
+                product={product}
+                onDelete={() =>
+                  handleDeleteProduct(product.orderId, product.id)
+                }
+              />
+            </li>
+          ))}
+        </ProductList>
       )}
-    </div>
+    </>
   );
 };

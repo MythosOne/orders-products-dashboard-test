@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import SafetyCheckIcon from '@mui/icons-material/SafetyCheck';
 
 export const Section = styled.header`
   box-sizing: border-box;
@@ -16,8 +17,19 @@ export const Section = styled.header`
   box-shadow: 0 20px 16px -16px rgba(0, 0, 0, 0.2);
 `;
 
+export const LogoWrapper = styled.a`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`;
+
 export const HeaderTitle = styled.h1`
   font-size: 18px;
   font-weight: 600;
   color: #93be56;
 `;
+
+export const BigSafetyCheckIcon = styled(SafetyCheckIcon)({
+  fontSize: 60,
+  color: '#93BE56',
+});

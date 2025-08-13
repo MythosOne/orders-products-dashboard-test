@@ -1,10 +1,10 @@
-import { ProductList } from '@/components/ProductsList/ProductsList';
+import { ProductsList } from '@/components/ProductsList/ProductsList';
+import {ProductsPage} from "./Products.styled"
 
 export const Products = () => {
   return (
-    <div>
-      <h1>Products Page</h1>
-      <ProductList/>
-    </div>
+    <ProductsPage>
+      <ProductsList/>
+    </ProductsPage>
   );
 }

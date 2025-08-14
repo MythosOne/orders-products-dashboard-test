@@ -31,7 +31,7 @@
 
     "forceConsistentCasingInFileNames": true,
 
-    "types": ["node"],
+    "types": ["node", "vite/client"],
   },
-  "include": ["src", "frontend", "backend", "src/main.tsx"]
+  "include": ["src", "frontend", "backend", "src/main.tsx", "frontend/env.d.ts", "vite-env.d.ts", "src/wdyr.ts"]
 }

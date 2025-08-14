@@ -1,4 +1,4 @@
-import { useState, memo } from 'react';
+import { useState, useRef, useEffect, memo } from 'react';
 import {
   OrderItemContainer,
   OrderTitle,
@@ -52,6 +52,20 @@ export const OrderItem: React.FC<OrderItemProps> = memo(
     const { _id, title, date, products } = order;
 
     const [isOpenModal, setIsOpenModal] = useState(false);
+    const [shrink, setShrink] = useState(false);
+    const containerRef = useRef<HTMLLIElement>(null);
+
+    useEffect(() => {
+      const resizeObserver = new ResizeObserver(() => {
+        if (containerRef.current) {
+          setShrink(containerRef.current.offsetWidth < 500);
+        }
+      });
+
+      if (containerRef.current) resizeObserver.observe(containerRef.current);
+
+      return () => resizeObserver.disconnect();
+    }, []);
 
     const handleDelete = () => setIsOpenModal(true);
     const handleCloseModal = () => setIsOpenModal(false);
@@ -72,8 +86,9 @@ export const OrderItem: React.FC<OrderItemProps> = memo(
 
     return (
       <>
-        <OrderItemContainer>
-          <OrderTitle>{title}</OrderTitle>
+        <OrderItemContainer ref={containerRef}>
+          {!shrink && <OrderTitle>{title}</OrderTitle>}
+
           <ProductsListButton onClick={() => onToggleProducts(_id)}>
             <StyledListIcon />
           </ProductsListButton>
@@ -103,13 +118,17 @@ export const OrderItem: React.FC<OrderItemProps> = memo(
                 .replace(/\s+/g, '/')}
             </LongOrderDate>
           </OrderDateContainer>
-          <SumOrderContainer>
-            <SumOrderUSD>{sumProductsUSD} $</SumOrderUSD>
-            <SumOrderUAH>{sumProductsUAH} UAH</SumOrderUAH>
-          </SumOrderContainer>
-          <ButtonDelete onClick={handleDelete}>
-            <StyledDeleteIcon />
-          </ButtonDelete>
+          {!shrink && (
+            <SumOrderContainer>
+              <SumOrderUSD>{sumProductsUSD} $</SumOrderUSD>
+              <SumOrderUAH>{sumProductsUAH} UAH</SumOrderUAH>
+            </SumOrderContainer>
+          )}
+          {!shrink && (
+            <ButtonDelete onClick={handleDelete}>
+              <StyledDeleteIcon />
+            </ButtonDelete>
+          )}
         </OrderItemContainer>
 
         <Modal

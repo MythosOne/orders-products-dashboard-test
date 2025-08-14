@@ -2,9 +2,11 @@ import {
   ProductsWrapperContainer,
   ProductTitle,
   ProductsList,
-  ProductItem,
   ButtonClose,
+  StyledCloseIcon,
 } from './ProductsWrapper.styled';
+
+import {ProductItem} from "@/components/OrdersList/ProductsWrapper/ProductItem/ProductItemWrapper"
 
 export interface Price {
   value: number;
@@ -14,11 +16,10 @@ export interface Price {
 
 export interface Product {
   id: number;
-  title: string;
   type: string;
+  photo: string;
+  date: string;
   specification: string;
-  price: Price[];
-  order: number;
 }
 
 interface ProductsWrapperProps {
@@ -27,23 +28,28 @@ interface ProductsWrapperProps {
   isOpen: boolean;
 }
 
-export const ProductsWrapper:React.FC<ProductsWrapperProps> = ({ products, onClose, isOpen }) => {
+export const ProductsWrapper: React.FC<ProductsWrapperProps> = ({
+  products,
+  onClose,
+  isOpen,
+}) => {
   return (
     <ProductsWrapperContainer $isOpen={isOpen}>
       <ProductTitle>Products:</ProductTitle>
       <ProductsList>
         {products.map((product) => {
-          const { id, title, type, specification, price } = product;
-          const defaultPrice = price.find((p) => p.isDefault === 1);
+          const { id, photo, specification, date } = product;
           return (
-            <ProductItem key={id}>
-              {title} — {type} — {specification} — {defaultPrice?.value}{' '}
-              {defaultPrice?.symbol}
-            </ProductItem>
+            <ProductItem
+              key={id}
+              photo={photo}
+              specification={specification}
+              date={date}
+            ></ProductItem>
           );
         })}
       </ProductsList>
-      <ButtonClose onClick={onClose}>Close</ButtonClose>
+      <ButtonClose onClick={onClose}><StyledCloseIcon/></ButtonClose>
     </ProductsWrapperContainer>
   );
 };

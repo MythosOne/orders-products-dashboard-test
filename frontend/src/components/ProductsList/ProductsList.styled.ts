@@ -28,4 +28,8 @@ export const NoProductsText = styled.p`
   color: #777;
 `;
 
-export const ProductList = styled.ul``;
+export const ProductList = styled.ul`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+`;

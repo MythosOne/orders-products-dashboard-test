@@ -5,6 +5,7 @@ import {
   SettingsSector,
   StyledSettingsIcon,
 } from './UserProfileWidget.styled';
+
 import avatarImg from '../../../assets/Jack.jpeg';
 
 export const UserProfileWidget = () => {

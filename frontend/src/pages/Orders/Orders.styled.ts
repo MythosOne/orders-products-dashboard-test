@@ -1,3 +1,7 @@
-import style from '@emotion/styled';
+import styled from '@emotion/styled';
 
-export const OrdersPage = style.section``;
+export const OrdersPage = styled.section`
+  display: flex;
+  gap: 5px;
+  margin: 0 14px;
+`;

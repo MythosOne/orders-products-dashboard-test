@@ -27,7 +27,6 @@ export const OrderItemContainer = styled.li`
   padding: 10px;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
-  margin-bottom: 16px;
   background-color: #fff;
 
   box-shadow:
@@ -45,6 +44,7 @@ export const OrderTitle = styled.p`
   margin: 0;
   font-size: 22px;
   color: #333;
+  width: 100px;
 `;
 
 export const ButtonDelete = styled.button`

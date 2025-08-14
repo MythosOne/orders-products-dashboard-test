@@ -9,8 +9,6 @@ import { OrderItem } from '@/components/OrdersList/OrderItem/OrderItem';
 import { ProductsWrapper } from '@/components/OrdersList/ProductsWrapper/ProductsWrapper';
 import { OrderListContainer } from './OrdersList.styled';
 
-import { ProductsWrapperContainer } from '@/components/OrdersList/ProductsWrapper/ProductsWrapper.styled';
-
 export const OrdersList = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { orders, loading, error } = useSelector(
@@ -56,17 +54,15 @@ export const OrdersList = () => {
           />
         ))}
       </OrderListContainer>
-      <ProductsWrapperContainer $isOpen={Boolean(selectedOrderId)}>
-        {selectedOrderId && (
-          <ProductsWrapper
-            isOpen={Boolean(selectedOrderId)}
-            products={
-              orders.find((o) => o._id === selectedOrderId)?.products || []
-            }
-            onClose={() => setSelectedOrderId(null)}
-          />
-        )}
-      </ProductsWrapperContainer>
+      {selectedOrderId && (
+        <ProductsWrapper
+          isOpen={Boolean(selectedOrderId)}
+          products={
+            orders.find((o) => o._id === selectedOrderId)?.products || []
+          }
+          onClose={() => setSelectedOrderId(null)}
+        />
+      )}
     </>
   );
 };

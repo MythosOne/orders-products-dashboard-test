@@ -24,7 +24,7 @@ export const LogoWrapper = styled(Link)`
   gap: 10px;
 `;
 
-export const HeaderTitle = styled.h1`
+export const HeaderTitle = styled.p`
   font-size: 18px;
   font-weight: 600;
   color: #93be56;

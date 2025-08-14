@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import {
   Overlay,
   ModalContainer,
@@ -24,6 +25,14 @@ export const Modal: React.FC<ModalProps> = ({
   onConfirm,
   itemName,
 }) => {
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    document.addEventListener('keydown', handleEsc);
+    return () => document.removeEventListener('keydown', handleEsc);
+  }, [onClose]);
+
   if (!open) return null;
 
   return (

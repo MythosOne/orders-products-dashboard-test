@@ -12,7 +12,7 @@ import {
 export const TopMenu = () => {
   return (
     <Section>
-      <LogoWrapper href="/">
+      <LogoWrapper to="/">
         <BigSafetyCheckIcon />
         <HeaderTitle>INVENTORY</HeaderTitle>
       </LogoWrapper>

@@ -1,11 +1,11 @@
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import { Nav, NavList, NavListItem } from './MenuList.styled';
 
 export const MenuList = () => {
   return (
     <Nav>
-      <NavList style={{ color: '#000', listStyleType: 'none', padding: 0 }}>
+      <NavList >
         <NavListItem>
           <Link to="/orders">Приход</Link>
         </NavListItem>

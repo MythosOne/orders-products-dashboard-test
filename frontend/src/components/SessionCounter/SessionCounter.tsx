@@ -23,6 +23,7 @@ export const SessionCounter: React.FC = () => {
     });
 
     return () => {
+      socket.off('activeSessionsUpdate');
       socket.disconnect();
     };
   }, []);

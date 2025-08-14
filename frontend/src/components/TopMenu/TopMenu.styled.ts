@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { Link } from 'react-router-dom';
 import SafetyCheckIcon from '@mui/icons-material/SafetyCheck';
 
 export const Section = styled.header`
@@ -17,7 +18,7 @@ export const Section = styled.header`
   box-shadow: 0 20px 16px -16px rgba(0, 0, 0, 0.2);
 `;
 
-export const LogoWrapper = styled.a`
+export const LogoWrapper = styled(Link)`
   display: flex;
   align-items: center;
   gap: 10px;

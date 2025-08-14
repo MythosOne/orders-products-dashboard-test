@@ -1,13 +1,14 @@
 import styled from '@emotion/styled';
 
-export const Nav = styled.nav`
-`;
+export const Nav = styled.nav``;
 
 export const NavList = styled.ul`
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 20px;
+  color: #000;
+  padding: 0;
 `;
 
 export const NavListItem = styled.li`

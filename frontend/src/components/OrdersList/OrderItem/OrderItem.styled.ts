@@ -3,10 +3,6 @@ import styled from '@emotion/styled';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-interface OrderItemContainerProps {
-  showProducts: boolean;
-}
-
 const Button = styled.button`
   background-color: #93be56;
   color: white;
@@ -21,12 +17,12 @@ const Button = styled.button`
   }
 `;
 
-export const OrderItemContainer = styled.li<OrderItemContainerProps>`
+export const OrderItemContainer = styled.li`
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
-  width: ${({ showProducts }) => (showProducts ? '40%' : '94%')};
+  width: 94%;
   transition: width 0.3s ease;
   padding: 10px;
   border: 1px solid #e0e0e0;
@@ -71,7 +67,6 @@ export const ButtonDelete = styled.button`
     box-shadow 0.2s ease;
 
   &:hover {
-    /* background: transparent !important; */
     border-color: #e1483dff;
     box-shadow: 0 0 5px rgba(118, 168, 67, 0.6);
   }
@@ -150,40 +145,4 @@ export const SumOrderUSD = styled.li`
 export const SumOrderUAH = styled.li`
   font-size: 14px;
   color: #000;
-`;
-
-export const ProductsWrapper = styled.div`
-  margin-top: 16px;
-  width: 100%;
-  max-height: 400px;
-  overflow-y: auto;
-  background-color: #f9f9f9;
-  padding: 8px;
-  border-radius: 4px;
-`;
-
-export const ProductTitle = styled.h4`
-  margin-bottom: 8px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #333;
-`;
-
-export const ProductsList = styled.ul`
-  list-style: none;
-  padding: 0;
-  margin: 0;
-`;
-
-export const ProductItem = styled.li`
-  color: #000;
-  margin-bottom: 4px;
-`;
-
-export const ButtonClose = styled(Button)`
-  background-color: #f44336;
-
-  &:hover {
-    background-color: #d32f2f;
-  }
 `;

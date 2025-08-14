@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import type { RootState, AppDispatch } from '@/redux/store';
 import { fetchOrders, deleteProduct } from '@/redux/ordersSlice';
@@ -23,20 +23,27 @@ export const ProductsList = () => {
     dispatch(fetchOrders());
   }, [dispatch]);
 
-  const allProducts = orders.flatMap((order) =>
-    order.products.map((p) => ({
-      ...p,
-      orderId: order._id,
-      orderTitle: order.title,
-    })),
-  );
+const allProducts = useMemo(
+  () =>
+    orders.flatMap((order) =>
+      order.products.map((p) => ({
+        ...p,
+        orderId: order._id,
+        orderTitle: order.title,
+      })),
+    ),
+  [orders],
+);
 
   const uniqueTypes = Array.from(new Set(allProducts.map((p) => p.type)));
 
-  const filteredProducts =
+  const filteredProducts = useMemo(
+  () =>
     filterType === 'all'
       ? allProducts
-      : allProducts.filter((product) => product.type === filterType);
+      : allProducts.filter((product) => product.type === filterType),
+  [allProducts, filterType],
+);
 
   const handleDeleteProduct = (orderId: string, productId: number) => {
     dispatch(deleteProduct({ orderId, productId }));

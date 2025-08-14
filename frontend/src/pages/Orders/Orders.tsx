@@ -1,10 +1,12 @@
 import { OrdersList } from '@/components/OrdersList/OrdersList';
-import {OrdersPage} from './Orders.styled'
+import { OrdersPage } from './Orders.styled';
 
-export const Orders = () => {
+const Orders = () => {
   return (
     <OrdersPage>
       <OrdersList />
     </OrdersPage>
   );
 };
+
+export default Orders;

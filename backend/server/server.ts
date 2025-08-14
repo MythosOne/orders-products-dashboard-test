@@ -56,6 +56,22 @@ app.delete("/api/orders/:id", async (req: Request, res: Response) => {
   }
 });
 
+app.delete("/api/orders/:orderId/products/:productId", async (req: Request, res: Response) => {
+  const { orderId, productId } = req.params;
+
+  try {
+    const order = await Order.findById(orderId);
+    if (!order) return res.status(404).json({ error: "Заказ не найден" });
+
+    order.products = order.products.filter(p => p.id !== Number(productId));
+    await order.save();
+
+    res.status(204).send();
+  } catch (err) {
+    res.status(500).json({ error: "Ошибка удаления продукта" });
+  }
+});
+
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);

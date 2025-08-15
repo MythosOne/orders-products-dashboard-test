@@ -48,17 +48,18 @@ interface OrderItemProps {
 }
 
 export const OrderItem: React.FC<OrderItemProps> = memo(
-  ({ order, onDelete, onToggleProducts }) => {
+  ({ order, onDelete, selectedOrderId,  onToggleProducts }) => {
     const { _id, title, date, products } = order;
 
     const [isOpenModal, setIsOpenModal] = useState(false);
     const [shrink, setShrink] = useState(false);
+
     const containerRef = useRef<HTMLLIElement>(null);
 
     useEffect(() => {
       const resizeObserver = new ResizeObserver(() => {
         if (containerRef.current) {
-          setShrink(containerRef.current.offsetWidth < 500);
+          setShrink(containerRef.current.offsetWidth < 700);
         }
       });
 
@@ -86,7 +87,10 @@ export const OrderItem: React.FC<OrderItemProps> = memo(
 
     return (
       <>
-        <OrderItemContainer ref={containerRef}>
+        <OrderItemContainer
+          ref={containerRef}
+          isSelected={selectedOrderId === _id}
+        >
           {!shrink && <OrderTitle>{title}</OrderTitle>}
 
           <ProductsListButton onClick={() => onToggleProducts(_id)}>

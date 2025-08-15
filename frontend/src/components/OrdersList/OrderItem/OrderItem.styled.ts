@@ -17,7 +17,7 @@ const Button = styled.button`
   }
 `;
 
-export const OrderItemContainer = styled.li`
+export const OrderItemContainer = styled.li<{ isSelected?: boolean }>`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -27,7 +27,9 @@ export const OrderItemContainer = styled.li`
   padding: 10px;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
-  background-color: #fff;
+  background-color: ${({ isSelected }) => (isSelected ? '#bded8aff' : '#fff')};
+
+  /* '#bded8aff' */
 
   box-shadow:
     0 2px 5px rgba(0, 0, 0, 0.2),

@@ -4,7 +4,7 @@ import CloseIcon from '@mui/icons-material/Close';
 
 export const ProductsWrapperContainer = styled.div<{ $isOpen?: boolean }>`
   position: relative;
-  width: 400px;
+  width: 800px;
   height: 50%;
   background: #fff;
   box-shadow: -2px 0 6px rgba(0, 0, 0, 0.1);

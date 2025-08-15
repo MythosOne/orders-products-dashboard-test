@@ -2,9 +2,9 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState, AppDispatch } from '@/redux/store';
 import { selectFilter } from '@/redux/filterSlice';
-import { fetchOrders} from '@/redux/ordersSlice';
+import { fetchOrders } from '@/redux/ordersSlice';
 
-import {TitleContainer, Title, StyledCircleIcon} from './OrdersTitle.styled'
+import { TitleContainer, Title, StyledCircleIcon } from './OrdersTitle.styled';
 
 export const OrdersTitle = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -25,7 +25,11 @@ export const OrdersTitle = () => {
   return (
     <TitleContainer>
       <StyledCircleIcon />
-      <Title>Приходы / {filteredOrders.length}</Title>
+      {filteredOrders.length === 0 ? (
+        <Title>Приход отстутствует</Title>
+      ) : (
+        <Title>Приходы / {filteredOrders.length}</Title>
+      )}
     </TitleContainer>
   );
 };

@@ -4,7 +4,7 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 export const TitleContainer = styled.div`
   margin-top: 150px;
   margin-left: 300px;
-  width: 300px;
+  width: 500px;
   padding: 10px;
 
   display: flex;

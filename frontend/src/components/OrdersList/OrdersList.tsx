@@ -37,9 +37,9 @@ export const OrdersList = () => {
     );
   }, [orders, filter]);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
-  if (filteredOrders.length === 0) return <div>No orders found</div>;
+  if (loading) return <div tyle={{color: "#000"}}>Loading...</div>;
+  if (error) return <div tyle={{color: "#000"}}>Error: {error}</div>;
+  if (filteredOrders.length === 0) return <div style={{color: "#000"}}>No orders found</div>;
 
   return (
     <>

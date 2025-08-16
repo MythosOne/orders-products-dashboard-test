@@ -30,12 +30,13 @@
 - ESLint и Prettier для контроля качества кода
 
 ## Новая структура проекта
-
+```text
 orders-products-dashboard-test/
 ├── backend/        # Серверная часть (Node.js, Express, Socket.io)
 ├── frontend/       # Клиентская часть (React, Redux, Vite)
 ├── README.md       # Общий README с инструкциями по обеим частям
 └── ...
+```
 
 ## Запуск фронтенда:
 
@@ -51,3 +52,12 @@ cd ../backend
 npm install
 npm run dev
 ```
+Файл схемы BD backend/OrdersDB/
+
+## Запуск фронтенда через Docker
+
+# Скачиваем образ с Docker Hub
+docker pull mythosone/orders-products-dashboard-test:latest
+
+# Запускаем контейнер с пробросом порта
+docker run -p 5173:5173 mythosone/orders-products-dashboard-test:latest

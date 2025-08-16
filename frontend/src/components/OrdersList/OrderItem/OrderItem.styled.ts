@@ -29,8 +29,6 @@ export const OrderItemContainer = styled.li<{ isSelected?: boolean }>`
   border-radius: 8px;
   background-color: ${({ isSelected }) => (isSelected ? '#bded8aff' : '#fff')};
 
-  /* '#bded8aff' */
-
   box-shadow:
     0 2px 5px rgba(0, 0, 0, 0.2),
     0 4px 6px rgba(0, 0, 0, 0.2);

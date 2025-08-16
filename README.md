@@ -52,7 +52,7 @@ cd ../backend
 npm install
 npm run dev
 ```
-Файл схемы BD backend/OrdersDB/
+Файл схемы DB backend/OrdersDB/
 
 ## Запуск фронтенда через Docker
 

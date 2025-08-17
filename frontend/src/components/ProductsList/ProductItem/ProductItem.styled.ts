@@ -42,7 +42,6 @@ export const ShortOrderDate = styled.li`
 
 export const LongOrderDate = styled.li`
   font-size: 14px;
-  color: #000;
 `;
 
 export const ProductType = styled.p`

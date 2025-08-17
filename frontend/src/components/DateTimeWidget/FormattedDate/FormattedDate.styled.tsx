@@ -5,7 +5,6 @@ export const CurrentDate = styled.p`
   flex-direction: column;
   align-items: center;
   margin: 0;
-  color: #000;
 `;
 
 export const DayNumber = styled.span`
@@ -15,7 +14,6 @@ export const DayNumber = styled.span`
 
 export const RestOfDate = styled.span`
   font-size: 20px;
-  color: #000;
   text-align: center;
   margin: 0;
 `;

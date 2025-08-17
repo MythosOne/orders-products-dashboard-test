@@ -7,14 +7,12 @@ export const NavList = styled.ul`
   flex-direction: column;
   align-items: center;
   gap: 20px;
-  color: #000;
   padding: 0;
 `;
 
 export const NavListItem = styled.li`
   position: relative;
   font-size: 22px;
-  color: #000;
   text-decoration: none;
   padding: 5px 10px;
   transition:

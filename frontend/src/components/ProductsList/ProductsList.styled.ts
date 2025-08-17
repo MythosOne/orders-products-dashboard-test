@@ -4,7 +4,6 @@ export const FilterLabel = styled.label`
   font-weight: 500;
   margin-bottom: 12px;
   display: block;
-  color: #000;
 `;
 
 export const FilterSelect = styled.select`
@@ -14,7 +13,6 @@ export const FilterSelect = styled.select`
   border-radius: 4px;
   border: 1px solid #ccc;
   background-color: #fff;
-  color: #000;
 
   &:disabled {
     background-color: #f5f5f5;

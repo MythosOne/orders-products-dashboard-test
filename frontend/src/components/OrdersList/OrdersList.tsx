@@ -7,7 +7,7 @@ import { selectFilter } from '@/redux/filterSlice';
 
 import { OrderItem } from '@/components/OrdersList/OrderItem/OrderItem';
 import { ProductsWrapper } from '@/components/OrdersList/ProductsWrapper/ProductsWrapper';
-import { OrderListContainer } from './OrdersList.styled';
+import { OrderListContainer, Loader, NoOrders } from './OrdersList.styled';
 
 export const OrdersList = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -37,9 +37,9 @@ export const OrdersList = () => {
     );
   }, [orders, filter]);
 
-  if (loading) return <div style={{color: "#000"}}>Loading...</div>;
-  if (error) return <div style={{color: "#000"}}>Error: {error}</div>;
-  if (filteredOrders.length === 0) return <div style={{color: "#000"}}>No orders found</div>;
+  if (loading) return <Loader >Loading...</Loader>;
+  if (error) return <Loader>Error: {error}</Loader>;
+  if (filteredOrders.length === 0) return <NoOrders>No orders found</NoOrders>;
 
   return (
     <>

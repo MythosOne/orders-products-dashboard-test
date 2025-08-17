@@ -10,7 +10,7 @@ import { Users } from '@/pages/Users/Users';
 import { Settings } from '@/pages/Setting/Settings';
 import { ErrorPage } from '@/pages/ErrorPage/ErrorPage';
 
-import { Main } from './App.styled';
+import { Main, Loader } from './App.styled';
 
 const Orders = lazy(() => import('@/pages/Orders/Orders'));
 const Products = lazy(() => import('@/pages/Products/Products'));
@@ -22,7 +22,7 @@ function App() {
       <NavigationMenu />
       <OrdersTitle />
       <Main>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<Loader>Loading...</Loader>}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/orders" element={<Orders />} />

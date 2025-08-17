@@ -7,6 +7,4 @@ export const CurrentTime = styled.p`
   line-height: normal;
   letter-spacing: -0.15px;
   margin: 0 0 4px;
-
-  color: #000;
 `;
